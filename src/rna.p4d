@@ -1,23 +1,23 @@
-File = { @Sequence #Root} S* EOT
+File = { (@Sequence)+ #Root} S* EOT
 
 Sequence = PSeq
-         / LSeq
+         / (LSeq / Element)
 
-PSeq   = {A @Sequence U #AU}
-       / {U @Sequence A #UA}
-       / {C @Sequence G #CG}
-       / {G @Sequence C #GC}
+PSeq     = {A @Sequence U #AU}
+         / {U @Sequence A #UA}
+         / {C @Sequence G #CG}
+         / {G @Sequence C #GC}
 
 
-LSeq    = {A (@Tmp / @LSeq / @Sequence) #ASeq}
-	/ {U (@Tmp / @LSeq / @Sequence) #USeq}
-        / {C (@Tmp / @LSeq / @Sequence) #CSeq}
-	/ {G (@Tmp / @LSeq / @Sequence) #GSeq}
+LSeq     = {A (@Element / @LSeq / @Sequence) #ASeq}
+         / {U (@Element / @LSeq / @Sequence) #USeq}
+         / {C (@Element / @LSeq / @Sequence) #CSeq}
+         / {G (@Element / @LSeq / @Sequence) #GSeq}
 
-Tmp      = {A #A}
-	 / {U #U}
-	 / {C #C}
-	 / {G #G}
+Element  = {A #A}
+         / {U #U}
+         / {C #C}
+         / {G #G}
 
 A = "A"
 U = "U"
