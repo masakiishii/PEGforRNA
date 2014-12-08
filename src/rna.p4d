@@ -1,0 +1,38 @@
+File = { @Sequence #Root} S* EOT
+
+Sequence = PSeq
+         / LSeq
+
+PSeq   = {A @Sequence U #AU}
+       / {U @Sequence A #UA}
+       / {C @Sequence G #CG}
+       / {G @Sequence C #GC}
+
+
+LSeq    = {A (@Tmp / @LSeq / @Sequence) #ASeq}
+	/ {U (@Tmp / @LSeq / @Sequence) #USeq}
+        / {C (@Tmp / @LSeq / @Sequence) #CSeq}
+	/ {G (@Tmp / @LSeq / @Sequence) #GSeq}
+
+Tmp      = {A #A}
+	 / {U #U}
+	 / {C #C}
+	 / {G #G}
+
+A = "A"
+U = "U"
+C = "C"
+G = "G"
+
+_
+	= S*
+
+S
+	= [ \n\r\t\u000B\u000C]
+
+EOL
+	= ('\r'? '\n' / !.)
+
+EOT	= !.
+
+
